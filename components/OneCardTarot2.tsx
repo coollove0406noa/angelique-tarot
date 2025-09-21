@@ -176,6 +176,24 @@ const playableDeck = useMemo(() => deck, []); // ← deck 全体に
       : (current.card.long_upright ?? current.card.upright)
   ) ?? (current.isReversed ? "（逆位置の説明未設定）" : "（正位置の説明未設定）")}
 </p>
+{/* 追加：補足セクション（任意項目だけ表示） */}
+<div className="mt-3 space-y-2 text-sm">
+  {current.card.love && (
+    <p><span className="font-semibold">恋愛：</span>{current.card.love}</p>
+  )}
+  {current.card.work && (
+    <p><span className="font-semibold">仕事：</span>{current.card.work}</p>
+  )}
+  {current.card.money && (
+    <p><span className="font-semibold">お金：</span>{current.card.money}</p>
+  )}
+  {current.card.advice && (
+    <p><span className="font-semibold">アドバイス：</span>{current.card.advice}</p>
+  )}
+  {current.card.keywords?.length ? (
+    <p><span className="font-semibold">キーワード：</span>{current.card.keywords.join("・")}</p>
+  ) : null}
+</div>
 
           </div>
         </div>
@@ -228,5 +246,6 @@ const playableDeck = useMemo(() => deck, []); // ← deck 全体に
     </div>
   );
 }
+
 
 
