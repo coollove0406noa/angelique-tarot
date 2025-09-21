@@ -1,9 +1,9 @@
 // lib/deck.ts
 export type Card = {
-  id: number;            // 0〜21
-  name: string;          // 表示名
-  keywords: string[];    // 仮で空でもOK
-  image: string;         // 例: "/cards/00.svg"
+  id: number;
+  name: string;
+  keywords: string[];
+  image: string;
 };
 
 const NAMES = [
@@ -15,8 +15,9 @@ export const MAJOR_ARCANA: Card[] = NAMES.map((name, i) => ({
   id: i,
   name,
   keywords: [],
-  image: `/cards/${String(i).padStart(2, "0")}.svg`, // ← 連番SVGに一致
+  image: `/cards/${String(i).padStart(2, "0")}.svg`, // 例: /cards/03.svg
 }));
+
 
 export const FULL_DECK: Card[] = MAJOR_ARCANA;
 
@@ -341,4 +342,5 @@ export const deck: Card[] = [
     keywords: ["達成", "統合", "完了", "循環", "祝福"],
   },
 ];
+
 
