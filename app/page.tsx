@@ -1,5 +1,6 @@
 // app/debug/page.tsx
-import { MAJOR_ARCANA } from "../../lib/deck"; // app/debug から lib へ相対
+import { MAJOR_ARCANA } from "../../lib/deck";
+
 
 export const dynamic = "force-dynamic";
 
