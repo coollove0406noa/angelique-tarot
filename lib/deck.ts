@@ -1,9 +1,11 @@
-// lib/deck.ts
+// 追加（型を拡張）
 export type Card = {
   id: number;
   name: string;
   keywords: string[];
   image: string;
+  upright?: string;   // 正位置の意味（任意）
+  reversed?: string;  // 逆位置の意味（任意）
 };
 
 const NAMES = [
@@ -349,6 +351,7 @@ export const deck: Card[] = [
     keywords: ["達成", "統合", "完了", "循環", "祝福"],
   },
 ];
+
 
 
 
