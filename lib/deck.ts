@@ -1,15 +1,12 @@
-// lib/deck.ts（確実に通る最小＋詳細版）
+// lib/deck.ts
 
+// ✅ any回避のため、詳細フィールドを “すべて任意” で型に追加
 export type Card = {
-  id: string;
-  arcana: "major" | "minor";
-  suit?: "wands" | "cups" | "swords" | "pentacles";
-  rank?: string;
-  name_en: string;
+  id: "fool" | "magician" | "world";
   name_jp: string;
-  upright: string;   // 短文
-  reversed: string;  // 短文
-  img?: string;
+  upright?: string;
+  reversed?: string;
+  img: string; // /cards/xxx.svg を入れる
 
   // 詳細（任意）
   long_upright?: string;
@@ -22,16 +19,13 @@ export type Card = {
 };
 
 // --- 大アルカナ（まずは3枚で動作確認） ---
-export const MAJOR_ARCANA: Card[] = [
+export const deck: Card[] = [
   {
-    id: "MAJ-00",
-    arcana: "major",
-    name_en: "The Fool",
+    id: "fool",
     name_jp: "愚者",
-    upright: "自由・新開始・直感",
-    reversed: "無計画・軽率・不安定",
-    img: "/cards/major/00_fool.svg",
-    long_upright:
+    upright: "自由・可能性",
+    reversed: "無計画・愚かさ",
+    img: "/cards/00_fool.svg",    long_upright:
       "未知への一歩。固定観念を外し、直感と遊び心を信じて進む時。失敗を恐れない軽やかさが新しい可能性を呼び込みます。",
     long_reversed:
       "準備不足や衝動でのスタートに注意。現実的な段取りや安全策を整え、勢いだけで飛び出さないこと。",
@@ -41,14 +35,12 @@ export const MAJOR_ARCANA: Card[] = [
     advice: "“まず一歩”を今日中に。完璧主義より行動。",
     keywords: ["始まり", "純粋", "冒険", "直感", "自由"],
   },
-  {
-    id: "MAJ-01",
-    arcana: "major",
-    name_en: "The Magician",
+   {
+    id: "magician",
     name_jp: "魔術師",
-    upright: "意志・創造・実行力",
-    reversed: "欺瞞・準備不足",
-    img: "/cards/major/01_magician.svg",
+    upright: "創造・始まり",
+    reversed: "迷い・未熟",
+    img: "/cards/01_magician.svg",
     long_upright:
       "意図と行動が一直線に繋がる時。手元の道具（スキル/人脈/時間）を組み合わせ、目に見える成果へ。",
     long_reversed:
@@ -60,13 +52,11 @@ export const MAJOR_ARCANA: Card[] = [
     keywords: ["意図", "表現", "実行", "スキル", "コミュニケーション"],
   },
   {
-    id: "MAJ-21",
-    arcana: "major",
-    name_en: "The World",
+    id: "world",
     name_jp: "世界",
-    upright: "完成・達成・統合",
-    reversed: "未完・あと一歩",
-    img: "/cards/major/21_world.svg",
+    upright: "完成・達成",
+    reversed: "未完・停滞",
+    img: "/cards/21_world.svg",
     long_upright:
       "一区切りの達成。努力が結実し、点と点が線になる。次章へ向けた“卒業”の時期。",
     long_reversed:
@@ -80,4 +70,4 @@ export const MAJOR_ARCANA: Card[] = [
 ];
 
 // まずは大アルカナだけでプレイアブル
-export const FULL_DECK: Card[] = [...MAJOR_ARCANA];
+
