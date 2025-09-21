@@ -1,9 +1,6 @@
-// components/OneCardTarot2.tsx
-"use client";
-
-import { useMemo, useState } from "react";
-import { MAJOR_ARCANA, type Card } from "../lib/deck"; // @ が効くなら "@/lib/deck"
-import OneCardTarot from "./OneCardTarot";
+- import { deck } from "@/lib/deck";
++ import { FULL_DECK as deck } from "../lib/deck"; // @が効くなら "@/lib/deck" でもOK
++ import { useMemo } from "react";
 
 export default function OneCardTarot2() {
   const playableDeck = useMemo(() => MAJOR_ARCANA, []);
@@ -24,3 +21,4 @@ export default function OneCardTarot2() {
     </div>
   );
 }
+
