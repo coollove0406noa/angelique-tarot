@@ -21,14 +21,12 @@ export const MAJOR_ARCANA: Card[] = Array.from({ length: 22 }, (_, i) => ({
   id: i,
   name: NAMES[i],
   keywords: [],
-  image: `/cards/${String(i).padStart(2, "0")}_${SLUGS[i]}.svg`, // 例: /cards/03_empress.svg
+  image: `/cards/${String(i).padStart(2, "0")}_${SLUGS[i]}.svg`,
 }));
 
 export const FULL_DECK: Card[] = MAJOR_ARCANA;
 
 
-
-export const FULL_DECK: Card[] = MAJOR_ARCANA;
 
   upright?: string;            // 短い意味（正）
   reversed?: string;           // 短い意味（逆）
@@ -351,6 +349,7 @@ export const deck: Card[] = [
     keywords: ["達成", "統合", "完了", "循環", "祝福"],
   },
 ];
+
 
 
 
