@@ -2,8 +2,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { MAJOR_ARCANA, type Card } from "@/lib/deck";
 import OneCardTarot from "./OneCardTarot";
+import { MAJOR_ARCANA, type Card } from "../lib/deck"; // ← 相対パスに変更
 
 function drawRandom(): Card {
   const i = Math.floor(Math.random() * MAJOR_ARCANA.length);
@@ -33,6 +33,7 @@ export default function OneOracle() {
     </div>
   );
 }
+
 
 2
 3
