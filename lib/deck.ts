@@ -17,15 +17,13 @@ const SLUGS = [
   "devil","tower","star","moon","sun","judgement","world"
 ];
 
-// ← ここで22枚を必ず作る
 export const MAJOR_ARCANA: Card[] = Array.from({ length: 22 }, (_, i) => ({
   id: i,
   name: NAMES[i],
   keywords: [],
-  image: `/cards/${String(i).padStart(2, "0")}_${SLUGS[i]}.svg`,
+  image: `/cards/${String(i).padStart(2, "0")}_${SLUGS[i]}.svg`, // 例: /cards/03_empress.svg
 }));
 
-// ついでにフルデッキもこの配列に揃えておく
 export const FULL_DECK: Card[] = MAJOR_ARCANA;
 
 
@@ -353,6 +351,7 @@ export const deck: Card[] = [
     keywords: ["達成", "統合", "完了", "循環", "祝福"],
   },
 ];
+
 
 
 
