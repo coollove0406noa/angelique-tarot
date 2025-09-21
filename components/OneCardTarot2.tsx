@@ -1,8 +1,6 @@
-"use client";
-
-import { useCallback, useEffect, useMemo, useState } from "react";
-import Image from "next/image";
-import { deck, type Card } from "@/lib/deck";
+- import { deck } from "@/lib/deck";
++ import { useMemo } from "react";
++ import { MAJOR_ARCANA } from "../lib/deck"; // ※ @ が効くなら "@/lib/deck" でもOK
 
 type DrawResult = {
   cardId: Card["id"];
@@ -51,7 +49,11 @@ function drawRandomCard(cards: Card[]): { card: Card; isReversed: boolean } {
 
 export default function OneCardTarot2() {
   // ✅ フックはコンポーネント関数の“中”で呼ぶ
-const playableDeck = useMemo(() => deck, []); // ← deck 全体に
+- const playableDeck = useMemo(
+-   () => deck.filter((c) => ["fool", "magician", "world"].includes(c.id)),
+-   []
+- );
++ const playableDeck = useMemo(() => MAJOR_ARCANA, []);
 
 
   const [current, setCurrent] = useState<{ card: Card; isReversed: boolean } | null>(null);
@@ -246,6 +248,7 @@ const playableDeck = useMemo(() => deck, []); // ← deck 全体に
     </div>
   );
 }
+
 
 
 
