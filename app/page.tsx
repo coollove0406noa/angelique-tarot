@@ -1,11 +1,22 @@
-// app/page.tsx
-import OneOracle from "@/components/OneOracle";
+// app/debug/page.tsx
+import { MAJOR_ARCANA } from "../../lib/deck"; // app/debug から lib へ相対
 
-export default function Home() {
+export const dynamic = "force-dynamic";
+
+export default function DebugDeck() {
   return (
-    <main className="p-8">
-      <h1 className="text-2xl font-bold mb-6 text-center">ワンオラクル 🔮</h1>
-      <OneOracle />
+    <main className="p-6">
+      <h1 className="text-xl font-bold mb-4">
+        デッキ確認（{MAJOR_ARCANA.length} 枚）
+      </h1>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {MAJOR_ARCANA.map(c => (
+          <div key={c.id} className="p-2 border rounded">
+            <img src={c.image} alt={c.name} width={150} height={225} />
+            <div className="mt-1 text-sm text-center">{c.id}: {c.name}</div>
+          </div>
+        ))}
+      </div>
     </main>
   );
 }
