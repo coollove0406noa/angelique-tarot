@@ -3,7 +3,8 @@
 
 import { useEffect, useState } from "react";
 import OneCardTarot from "./OneCardTarot";
-import { MAJOR_ARCANA, type Card } from "../lib/deck"; // ★ここを相対に
+import { MAJOR_ARCANA } from "../../lib/deck";
+
 
 function drawRandom(): Card {
   const i = Math.floor(Math.random() * MAJOR_ARCANA.length);
