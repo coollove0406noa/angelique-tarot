@@ -1,7 +1,25 @@
+// lib/deck.ts
 export type Card = {
-  id: string;
-  name_jp: string;
-  img: string;                 // /cards/*.svg
+  id: number;            // 0〜21
+  name: string;          // 表示名
+  keywords: string[];    // 仮で空でもOK
+  image: string;         // 例: "/cards/00.svg"
+};
+
+const NAMES = [
+  "愚者","魔術師","女教皇","女帝","皇帝","法王","恋人","戦車","力","隠者",
+  "運命の輪","正義","吊るされた男","死神","節制","悪魔","塔","星","月","太陽","審判","世界"
+];
+
+export const MAJOR_ARCANA: Card[] = NAMES.map((name, i) => ({
+  id: i,
+  name,
+  keywords: [],
+  image: `/cards/${String(i).padStart(2, "0")}.svg`, // ← 連番SVGに一致
+}));
+
+export const FULL_DECK: Card[] = MAJOR_ARCANA;
+
   upright?: string;            // 短い意味（正）
   reversed?: string;           // 短い意味（逆）
   long_upright?: string;       // 寄り添い解説（正）
@@ -323,3 +341,4 @@ export const deck: Card[] = [
     keywords: ["達成", "統合", "完了", "循環", "祝福"],
   },
 ];
+
