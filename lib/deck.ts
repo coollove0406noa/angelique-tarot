@@ -1,5 +1,4 @@
 // lib/deck.ts
-// lib/deck.ts
 export type Card = {
   id: number;
   name: string;
@@ -12,19 +11,22 @@ const NAMES = [
   "運命の輪","正義","吊るされた男","死神","節制","悪魔","塔","星","月","太陽","審判","世界"
 ];
 
-// ファイル名用のスラッグ（あなたの命名に合わせる）
 const SLUGS = [
   "fool","magician","high_priestess","empress","emperor","hierophant","lovers",
   "chariot","strength","hermit","wheel","justice","hanged_man","death","temperance",
   "devil","tower","star","moon","sun","judgement","world"
 ];
 
-export const MAJOR_ARCANA: Card[] = NAMES.map((name, i) => ({
+// ← ここで22枚を必ず作る
+export const MAJOR_ARCANA: Card[] = Array.from({ length: 22 }, (_, i) => ({
   id: i,
-  name,
+  name: NAMES[i],
   keywords: [],
-  image: `/cards/${String(i).padStart(2, "0")}_${SLUGS[i]}.svg`, // 例: /cards/03_empress.svg
+  image: `/cards/${String(i).padStart(2, "0")}_${SLUGS[i]}.svg`,
 }));
+
+// ついでにフルデッキもこの配列に揃えておく
+export const FULL_DECK: Card[] = MAJOR_ARCANA;
 
 
 
@@ -351,6 +353,7 @@ export const deck: Card[] = [
     keywords: ["達成", "統合", "完了", "循環", "祝福"],
   },
 ];
+
 
 
 
