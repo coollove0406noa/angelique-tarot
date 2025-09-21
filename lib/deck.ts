@@ -1,33 +1,21 @@
-// 追加（型を拡張）
+// lib/deck.ts（末尾あたりに追記 or 定義を更新）
 export type Card = {
   id: number;
   name: string;
   keywords: string[];
   image: string;
-  upright?: string;   // 正位置の意味（任意）
-  reversed?: string;  // 逆位置の意味（任意）
 };
 
-const NAMES = [
-  "愚者","魔術師","女教皇","女帝","皇帝","法王","恋人","戦車","力","隠者",
-  "運命の輪","正義","吊るされた男","死神","節制","悪魔","塔","星","月","太陽","審判","世界"
+// 既存の MAJOR_ARCANA はそのまま
+
+// ★ 追加したい新カード（例：minor）
+export const MINOR_ARCANA: Card[] = [
+  { id: 100, name: "Ace of Cups", keywords: [], image: "/cards/minor/xxxx.svg" },
+  // 他にもあればここに増やす
 ];
 
-const SLUGS = [
-  "fool","magician","high_priestess","empress","emperor","hierophant","lovers",
-  "chariot","strength","hermit","wheel","justice","hanged_man","death","temperance",
-  "devil","tower","star","moon","sun","judgement","world"
-];
-
-export const MAJOR_ARCANA: Card[] = Array.from({ length: 22 }, (_, i) => ({
-  id: i,
-  name: NAMES[i],
-  keywords: [],
-  image: `/cards/${String(i).padStart(2, "0")}_${SLUGS[i]}.svg`,
-}));
-
-export const FULL_DECK: Card[] = MAJOR_ARCANA;
-
+// ★ 抽選対象をフルデッキに
+export const FULL_DECK: Card[] = [...MAJOR_ARCANA, ...MINOR_ARCANA];
 
 
   upright?: string;            // 短い意味（正）
@@ -351,6 +339,7 @@ export const deck: Card[] = [
     keywords: ["達成", "統合", "完了", "循環", "祝福"],
   },
 ];
+
 
 
 
