@@ -51,10 +51,8 @@ function drawRandomCard(cards: Card[]): { card: Card; isReversed: boolean } {
 
 export default function OneCardTarot2() {
   // ✅ フックはコンポーネント関数の“中”で呼ぶ
-  const playableDeck = useMemo(
-    () => deck.filter((c) => ["fool", "magician", "world"].includes(c.id)),
-    []
-  );
+const playableDeck = useMemo(() => deck, []); // ← deck 全体に
+
 
   const [current, setCurrent] = useState<{ card: Card; isReversed: boolean } | null>(null);
   const [history, setHistory] = useState<HistoryItem[]>([]);
@@ -230,4 +228,5 @@ export default function OneCardTarot2() {
     </div>
   );
 }
+
 
