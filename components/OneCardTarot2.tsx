@@ -172,10 +172,13 @@ export default function OneCardTarot2() {
               {current.card.name_jp} {current.isReversed ? "（逆位置）" : "（正位置）"}
             </h2>
             <p className="leading-relaxed">
-              {current.isReversed
-                ? current.card.reversed ?? "（逆位置の説明未設定）"
-                : current.card.upright ?? "（正位置の説明未設定）"}
-            </p>
+  {(
+    current.isReversed
+      ? (current.card.long_reversed ?? current.card.reversed)
+      : (current.card.long_upright ?? current.card.upright)
+  ) ?? (current.isReversed ? "（逆位置の説明未設定）" : "（正位置の説明未設定）")}
+</p>
+
           </div>
         </div>
       ) : (
@@ -227,3 +230,4 @@ export default function OneCardTarot2() {
     </div>
   );
 }
+
