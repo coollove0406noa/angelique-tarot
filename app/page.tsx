@@ -3,20 +3,11 @@ import OneOracle from "@/components/OneOracle";
 import Link from "next/link";
 
 export default function Home() {
+  console.log("[HOME] app/page.tsx is live");
   return (
-    <main className="grid place-items-center gap-6 p-6">
-      <h1 className="text-2xl font-bold">Angelique Tarot</h1>
-
-      {/* ✅ 3枚引きへのリンク */}
-      <Link
-        href="/three"
-        className="px-4 py-2 rounded-lg bg-pink-500 text-white shadow hover:bg-pink-600"
-      >
-        3枚引きへ
-      </Link>
-
-      <div className="w-full max-w-md">
-        <OneOracle />
+    <main className="p-8">
+      <div className="rounded-lg bg-yellow-200 text-black p-4 text-center text-xl font-bold">
+        ✅ THIS IS app/page.tsx
       </div>
     </main>
   );
