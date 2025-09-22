@@ -41,3 +41,6 @@ const stampedUrl = withParam(currentShareUrl, "t", String(t));
   <ExportImageButton targetId="result" filename={`angelique-three-${t}.png`} />
   <ShareActions url={stampedUrl} />
 </div>
+import DeckSwitch from "@/components/DeckSwitch";
+
+<DeckSwitch />
