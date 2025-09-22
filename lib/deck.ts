@@ -58,3 +58,9 @@ export const FULL_DECK: Card[] = [...MAJOR_ARCANA, ...MINOR_ARCANA];
 // 互換用（OneCardTarot2 などが deck をインポートしている場合）
 export const deck = FULL_DECK;
 '@ | Set-Content -Encoding UTF8 lib\deck.ts
+
+// 一時デバッグ（deck.ts の末尾あたりに入れてOK。開発時のみ）
+if (process.env.NODE_ENV !== "production") {
+  console.log("FULL_DECK size:", FULL_DECK.length);
+  console.log("IDs:", FULL_DECK.map(c => c.id));
+}
