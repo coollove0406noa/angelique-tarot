@@ -14,6 +14,11 @@ export default function OneCardTarot({ card, reversed = false }: Props) {
 const v = process.env.NEXT_PUBLIC_BUILD_ID ?? Date.now().toString();
 const src = `${card.image}?v=${v}`;
 <Image src={src} alt={card.name} width={440} height={640} className={reversed?"rotate-180":""} />
+// components/OneOracle.tsx
+const meaning =
+  (reversed ? card.reversed : card.upright)
+  ?? (card as any).advice?.all
+  ?? "";
 
   return (
     <div className="select-none">
