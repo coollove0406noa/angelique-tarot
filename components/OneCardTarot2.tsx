@@ -1,7 +1,6 @@
 // components/OneCardTarot.tsx
 import Image from "next/image";
-import type { Card } from "../lib/deck";
-
+ import { FULL_DECK as DECK, type Card } from "@/lib/deck"
 export default function OneCardTarot({ card }: { card: Card }) {
   return (
     <div style={{ width: 300, margin: "0 auto", textAlign: "center" }}>
@@ -10,3 +9,4 @@ export default function OneCardTarot({ card }: { card: Card }) {
     </div>
   );
 }
+
