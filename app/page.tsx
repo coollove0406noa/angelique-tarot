@@ -1,14 +1,9 @@
 // app/page.tsx
+import OneCardTarot2 from "@/components/OneCardTarot2";
 export default function Home() {
   return (
-    <main style={{ padding: 24 }}>
-      <div style={{
-        background: "#fde68a", color: "#111", padding: 16,
-        textAlign: "center", fontWeight: 700, borderRadius: 8
-      }}>
-        ✅ MINIMAL PAGE OK
-      </div>
+    <main className="p-6">
+      <OneCardTarot2 />
     </main>
   );
 }
-
