@@ -1,5 +1,28 @@
 // app/debug/page.tsx
 import ResultStamp from "@/components/ResultStamp";
+import Link from "next/link";
+// 既存の imports に追加
+
+export default function Home() {
+  return (
+    <main className="grid place-items-center gap-6 p-6">
+      <h1 className="text-2xl font-bold">Angelique Tarot</h1>
+
+      {/* ✅ 3枚引きへのリンク */}
+      <Link
+        href="/three"
+        className="px-4 py-2 rounded-lg bg-pink-500 text-white shadow hover:bg-pink-600"
+      >
+        3枚引きへ
+      </Link>
+
+      <div className="w-full max-w-md">
+        <OneOracle />
+      </div>
+    </main>
+  );
+}
+
 import ExportImageButton from "@/components/ExportImageButton";
 import ShareActions from "@/components/ShareActions";
 import { nowUnix, withParam } from "@/lib/format";
