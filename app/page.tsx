@@ -1,6 +1,10 @@
 // app/debug/page.tsx
 import { MAJOR_ARCANA } from "../../lib/deck";
 
+// どこか見出しの下あたりに
+<p className="text-center mt-2">
+  <a href="/three" className="underline opacity-80">三枚引きへ →</a>
+</p>
 
 export const dynamic = "force-dynamic";
 
