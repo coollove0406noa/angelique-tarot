@@ -2,8 +2,7 @@
 "use client";
 
 import Image from "next/image";
-import type { Card } from "../lib/deck";
-
+ import { FULL_DECK as DECK, type Card } from "@/lib/deck"
 type Props = {
   card: Card;
   reversed?: boolean; // 逆位置なら 180° 回転
