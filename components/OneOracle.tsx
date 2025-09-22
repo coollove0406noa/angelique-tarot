@@ -1,3 +1,4 @@
+console.log("[OneOracle] mounted");
 // components/OneOracle.tsx
 "use client";
 
