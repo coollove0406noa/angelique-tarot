@@ -1,7 +1,6 @@
-// app/debug/page.tsx
-import ResultStamp from "@/components/ResultStamp";
+// app/page.tsx
+import OneOracle from "@/components/OneOracle";
 import Link from "next/link";
-// 既存の imports に追加
 
 export default function Home() {
   return (
@@ -22,6 +21,7 @@ export default function Home() {
     </main>
   );
 }
+
 
 import ExportImageButton from "@/components/ExportImageButton";
 import ShareActions from "@/components/ShareActions";
