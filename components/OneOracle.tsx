@@ -4,7 +4,13 @@
 import { useEffect, useState } from "react";
 import { FULL_DECK as DECK, type Card } from "../lib/deck";
 import OneCardTarot from "./OneCardTarot";
-
+<Image
+  src={src}
+  alt={card.name}
+  width={/* 既存値 */}
+  height={/* 既存値 */}
+  /* 既存の props そのまま */
+/>
 type Draw = { card: Card; reversed: boolean };
 
 export default function OneOracle() {
