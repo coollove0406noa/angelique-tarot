@@ -1,36 +1,61 @@
-// components/OneCardTarot.tsx
+// components/OneOracle.tsx
 "use client";
 
-import Image from "next/image";
- import { FULL_DECK as DECK, type Card } from "@/lib/deck"
-type Props = {
-  card: Card;
-  reversed?: boolean; // 逆位置なら 180° 回転
-};
+import { useEffect, useState } from "react";
+import OneCardTarot from "./OneCardTarot";
+// パスエイリアス(@)が無ければ "../lib/deck" に変えてOK
+import { FULL_DECK as DECK, type Card } from "@/lib/deck";
 
-export default function OneCardTarot({ card, reversed = false }: Props) {
-  // キャッシュ無効化用のクエリ（ローカルは毎回変わるように）
-// components/OneCardTarot.tsx
-const v = process.env.NEXT_PUBLIC_BUILD_ID ?? Date.now().toString();
-const src = `${card.image}?v=${v}`;
-<Image src={src} alt={card.name} width={440} height={640} className={reversed?"rotate-180":""} />
-// components/OneOracle.tsx
-const meaning =
-  (reversed ? card.reversed : card.upright)
-  ?? (card as any).advice?.all
-  ?? "";
+type Draw = { card: Card; reversed: boolean };
+
+export default function OneOracle() {
+  const [entry, setEntry] = useState<Draw | null>(null);
+
+  // 1枚引く
+  const draw = (): Draw => {
+    const i = Math.floor(Math.random() * DECK.length);
+    return { card: DECK[i], reversed: Math.random() < 0.5 };
+  };
+
+  // 初回に1回だけ引く
+  useEffect(() => {
+    setEntry(draw());
+  }, []);
+
+  if (!entry) return <p className="text-center">シャッフル中…</p>;
+
+  const { card, reversed } = entry;
+
+  // 詳細文：upright/reversed → advice.all の順でフォールバック
+  const meaning =
+    (reversed ? (card as any).reversed : (card as any).upright) ??
+    (card as any).advice?.all ??
+    "";
 
   return (
-    <div className="select-none">
-      <Image
-        src={src}
-        alt={card.name}
-        width={440}
-        height={640}
-        priority
-        draggable={false}
-        className={`block drop-shadow ${reversed ? "rotate-180" : ""}`}
-      />
+    <div className="grid place-items-center gap-3 max-w-[40rem] mx-auto">
+      <div className="text-sm opacity-70">デッキ枚数: {DECK.length}</div>
+
+      {/* カード本体（逆位置は180°回転） */}
+      <OneCardTarot card={card} reversed={reversed} />
+
+      <div className="text-center text-sm opacity-70">
+        {reversed ? "逆位置" : "正位置"}
+      </div>
+
+      {/* 詳細文 */}
+      {meaning ? (
+        <p className="text-center leading-7 px-4 whitespace-pre-wrap">{meaning}</p>
+      ) : (
+        <p className="text-center text-sm opacity-60">※ このカードの意味は未入力です</p>
+      )}
+
+      <button
+        onClick={() => setEntry(draw())}
+        className="px-4 py-2 rounded-lg shadow border bg-white hover:bg-gray-50"
+      >
+        もう一度引く 🔮
+      </button>
     </div>
   );
 }
