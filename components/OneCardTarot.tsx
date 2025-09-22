@@ -1,7 +1,6 @@
 // components/OneCardTarot.tsx
 import CardImage from "./CardImage";
-import { Card } from "@/lib/deck";
-
+ import { FULL_DECK as DECK, type Card } from "@/lib/deck"
 export default function OneCardTarot({ card }: { card: Card }) {
   return (
     <div className="max-w-[320px] mx-auto">
