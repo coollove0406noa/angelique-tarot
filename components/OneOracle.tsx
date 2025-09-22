@@ -26,7 +26,12 @@ export default function OneOracle() {
   if (!entry) return <p className="text-center">シャッフル中…</p>;
 
   const { card, reversed } = entry;
-  const meaning = reversed ? card.reversed : card.upright;
+  
+// 変更後（upright/reversed が未入力でも advice で補う）
+const meaning =
+  (reversed ? card.reversed : card.upright)
+  ?? card.advice?.all
+  ?? "";
 
   return (
     <div className="grid place-items-center gap-3 max-w-[40rem] mx-auto">
