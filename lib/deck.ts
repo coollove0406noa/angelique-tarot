@@ -1,349 +1,60 @@
-// lib/deck.ts（末尾あたりに追記 or 定義を更新）
+cd C:\dev\angelique-tarot
+@'
+// lib/deck.ts
 export type Card = {
   id: number;
   name: string;
   keywords: string[];
   image: string;
+  upright?: string;
+  reversed?: string;
 };
 
-// 既存の MAJOR_ARCANA はそのまま
-
-// ★ 追加したい新カード（例：minor）
-export const MINOR_ARCANA: Card[] = [
-  { id: 100, name: "Ace of Cups", keywords: [], image: "/cards/minor/xxxx.svg" },
-  // 他にもあればここに増やす
+const NAMES = [
+  "愚者","魔術師","女教皇","女帝","皇帝","法王","恋人","戦車","力","隠者",
+  "運命の輪","正義","吊るされた男","死神","節制","悪魔","塔","星","月","太陽","審判","世界"
 ];
 
-// ★ 抽選対象をフルデッキに
+const SLUGS = [
+  "fool","magician","high_priestess","empress","emperor","hierophant","lovers",
+  "chariot","strength","hermit","wheel","justice","hanged_man","death","temperance",
+  "devil","tower","star","moon","sun","judgement","world"
+];
+
+const UPRIGHT = [
+  "自由・純真・冒険","創造・意志・集中","直感・静観・神秘","肥沃・愛情・豊かさ","権威・安定・構造",
+  "伝統・学び・信頼","選択・調和・愛","勝利・前進・意志力","勇気・自己制御・慈愛","探求・内省・指導",
+  "変化・転機・流れ","公平・バランス・真実","受容・視点転換・奉仕","終結・浄化・再生","調整・節度・融合",
+  "影の統合・欲望の自覚","覚醒・崩壊・再構築","希望・癒し・インスピレーション","潜在意識・想像・感性",
+  "成功・活力・喜び","目覚め・赦し・決断","完成・達成・統合"
+];
+
+const REVERSED = [
+  "無謀・優柔不断・遅延","操作・空回り・未熟","鈍感・秘密・閉塞","過保護・浪費・停滞","独裁・硬直・支配",
+  "偏狭・形式主義・反抗","不一致・迷い・不和","失速・焦り・方向迷子","弱気・葛藤・自己嫌悪","孤立・固執・閉じこもり",
+  "停滞・不運・流れに逆らう","不公正・偏り・自己弁護","犠牲過多・惰性・優柔不断","抵抗・惰性・未練","極端・過剰・不調和",
+  "依存・束縛・自己欺瞞","破局・混乱・拒否","失望・現実逃避・枯渇","混乱・誤解・妄想","空元気・過信・消耗",
+  "固執・後悔・自己批判","未完・停滞・散漫"
+];
+
+// 大アルカナ22枚（画像名は 00_fool.svg ～ 21_world.svg 前提）
+export const MAJOR_ARCANA: Card[] = Array.from({ length: 22 }, (_, i) => ({
+  id: i,
+  name: NAMES[i],
+  keywords: [],
+  image: `/cards/${String(i).padStart(2, "0")}_${SLUGS[i]}.svg`,
+  upright: UPRIGHT[i],
+  reversed: REVERSED[i],
+}));
+
+// 小アルカナ（必要ならここに追記してください）
+export const MINOR_ARCANA: Card[] = [
+  // 例）{ id: 100, name: "Ace of Cups", keywords: [], image: "/cards/minor/ace_cups.svg", upright: "愛の芽生え", reversed: "停滞・空虚" },
+];
+
+// フルデッキ（画面側はこれを使う）
 export const FULL_DECK: Card[] = [...MAJOR_ARCANA, ...MINOR_ARCANA];
 
-
-  upright?: string;            // 短い意味（正）
-  reversed?: string;           // 短い意味（逆）
-  long_upright?: string;       // 寄り添い解説（正）
-  long_reversed?: string;      // 寄り添い解説（逆）
-  love?: string;
-  work?: string;
-  money?: string;
-  advice?: string;
-  keywords?: string[];
-};
-
-export const deck: Card[] = [
-  {
-    id: "fool",
-    name_jp: "愚者",
-    img: "/cards/00_fool.svg",
-    upright: "自由・可能性・新しい一歩",
-    reversed: "無計画・衝動・足元の不安",
-    long_upright: "考えすぎず、まず一歩。失敗しても経験が増えるだけ。あなたの直感は、今は信頼して大丈夫。",
-    long_reversed: "勢いで進む前にひと呼吸。安全・お金・時間の“最低限の準備”を整えれば恐れは小さくなるよ。",
-    love: "自然体がいちばんの魅力に。肩の力を抜いて。",
-    work: "小さく試す→学ぶ→次へ、の循環を回そう。",
-    money: "経験や学びへの投資は◎。衝動買いは控えめに。",
-    advice: "今日の“最初の一歩”を30分でできる形に。",
-    keywords: ["始まり", "冒険", "純粋", "直感", "自由"],
-  },
-  {
-    id: "magician",
-    name_jp: "魔術師",
-    img: "/cards/01_magician.svg",
-    upright: "創造・表現・スタートの合図",
-    reversed: "準備不足・迷い・伝わらない",
-    long_upright: "あなたの道具（スキル・人脈・時間）で十分始められる。小さく形にすると自信が育つよ。",
-    long_reversed: "“できるふり”より“できる範囲を明確に”。伝え方を整えると誤解は減り、味方が増える。",
-    love: "言葉と行動で誠実さを見せて前進。",
-    work: "企画・提案・プレゼンが追い風。段取りを丁寧に。",
-    money: "スキルの現金化◎。契約前に条件を再確認。",
-    advice: "目標を1文で可視化して机に貼る。",
-    keywords: ["意図", "表現", "実行", "コミュニケーション", "スタート"],
-  },
-  {
-    id: "high_priestess",
-    name_jp: "女教皇",
-    img: "/cards/02_high_priestess.svg",
-    upright: "静かな洞察・直感・知恵",
-    reversed: "閉じがち・不安・伝えにくさ",
-    long_upright: "少し静けさを作ると、心の声がはっきり届く。急がず観察すれば、最善が自然と見えてくるよ。",
-    long_reversed: "黙って耐えるより、やさしい言葉で少しだけ伝えてみよう。分かち合えば軽くなる。",
-    love: "焦らず信頼を育てる時間。境界線を大切に。",
-    work: "調査・分析・学び直し◎。まず情報整理から。",
-    money: "慎重さが味方。長期の安定を優先。",
-    advice: "10分だけ静かな時間を取り、感じたことをメモ。",
-    keywords: ["洞察", "受容", "学び", "内省", "バランス"],
-  },
-  {
-    id: "empress",
-    name_jp: "女帝",
-    img: "/cards/03_empress.svg",
-    upright: "豊かさ・育成・安心感",
-    reversed: "過保護・散漫・停滞",
-    long_upright: "あなたの優しさが誰かを育てる時。環境を整えると、成果と笑顔がいっそう実る。",
-    long_reversed: "与えすぎで疲れていない？“できること”と“やらなくていいこと”を分けて休もう。",
-    love: "温かいコミュニケーションが実を結ぶ。",
-    work: "チームビルディング◎。育成や環境づくりに投資を。",
-    money: "生活の質が上がる投資は吉。浪費は控えめに。",
-    advice: "“ありがとう”を一言、具体的に伝える。",
-    keywords: ["豊穣", "成長", "母性", "安心", "実り"],
-  },
-  {
-    id: "emperor",
-    name_jp: "皇帝",
-    img: "/cards/04_emperor.svg",
-    upright: "秩序・責任・安定",
-    reversed: "頑固・支配的・硬直",
-    long_upright: "方針をはっきり示すと周囲が動きやすい。強さは“守るため”に使えば信頼に変わる。",
-    long_reversed: "自分の正しさに縛られていない？対話の余白を作ると、力はもっと優しく働くよ。",
-    love: "誠実さと一貫性が安心を生む。",
-    work: "役割分担と優先順位の明確化が鍵。",
-    money: "計画的な守り。固定費の見直し◎。",
-    advice: "今日の最重要3つを紙に書き、順番通りに。",
-    keywords: ["規律", "統率", "安定", "責任", "枠組み"],
-  },
-  {
-    id: "hierophant",
-    name_jp: "教皇",
-    img: "/cards/05_hierophant.svg",
-    upright: "伝統・助言・道徳",
-    reversed: "形式だけ・思い込み・窮屈さ",
-    long_upright: "先人の知恵に学ぶ時。正道に立ち返るほど、道は自然と開けていく。",
-    long_reversed: "“普通”に合わせすぎて苦しくない？あなたに合う形へ、少しだけ調整してみよう。",
-    love: "誠実な関わりと約束が信頼に。",
-    work: "相談・メンタリング◎。手順に沿って確実に。",
-    money: "堅実さが吉。寄付や恩返しも巡りを良くする。",
-    advice: "尊敬する人の言葉を一つ実践。",
-    keywords: ["信頼", "倫理", "学び", "伝統", "導き"],
-  },
-  {
-    id: "lovers",
-    name_jp: "恋人",
-    img: "/cards/06_lovers.svg",
-    upright: "選択・共鳴・愛",
-    reversed: "優柔不断・依存・曖昧さ",
-    long_upright: "本心が向かう方を選べば良い出会いと協力が生まれる。自分を大切にするほど、愛は巡る。",
-    long_reversed: "相手や環境に合わせすぎてない？あなたの“YES/NO”を優しく言葉にしよう。",
-    love: "素直な気持ちを共有して関係が深まる。",
-    work: "パートナーシップ・共同作業が鍵。",
-    money: "大きな買い物は価値観に合うかで判断。",
-    advice: "選択の基準を3つ書き出す。",
-    keywords: ["選択", "調和", "魅力", "価値観", "関係性"],
-  },
-  {
-    id: "chariot",
-    name_jp: "戦車",
-    img: "/cards/07_chariot.svg",
-    upright: "前進・勝利・集中",
-    reversed: "空回り・ブレ・消耗",
-    long_upright: "勢いは十分。目的地を1つに絞れば、障害はスピードで抜けられる。",
-    long_reversed: "頑張りすぎのサイン。休息と軌道修正で“走り続けられる形”に戻そう。",
-    love: "積極的な行動が実を結ぶ。押し付けは×。",
-    work: "短期決戦に強い。期限と役割を明確に。",
-    money: "計画的な攻め。余力を残す運用を。",
-    advice: "今週の“やらないこと”を決める。",
-    keywords: ["推進力", "集中", "突破", "自信", "スピード"],
-  },
-  {
-    id: "strength",
-    name_jp: "力",
-    img: "/cards/08_strength.svg",
-    upright: "優しい強さ・自己受容",
-    reversed: "自己否定・エネルギー不足",
-    long_upright: "力みではなく“丁寧さ”が状況を動かす。自分を責めないほど、粘り強さが戻ってくるよ。",
-    long_reversed: "頑張れない自分もOK。まず休んで、小さな達成から気力を取り戻そう。",
-    love: "思いやりが信頼を深める。",
-    work: "難題も一歩ずつ。根気と配慮で前進。",
-    money: "地道な積立と継続投資が◎。",
-    advice: "自分をねぎらう言葉を一つ。",
-    keywords: ["忍耐", "思いやり", "自己肯定", "回復", "継続"],
-  },
-  {
-    id: "hermit",
-    name_jp: "隠者",
-    img: "/cards/09_hermit.svg",
-    upright: "内省・真理探求・一人時間",
-    reversed: "孤立・不安・閉塞",
-    long_upright: "静かな時間が答えを連れてくる。遠回りでも、自分のペースで掴んだ理解は一生もの。",
-    long_reversed: "一人で抱えすぎてない？信頼できる人に少し話すだけで道が見えることも。",
-    love: "無理に進めず、安心できる距離感で。",
-    work: "検証・ナレッジ化◎。質を高める時期。",
-    money: "無駄を省き、必要なものへ集中投資。",
-    advice: "今日はSNSを10分休んで、考えをメモ。",
-    keywords: ["内省", "成熟", "知恵", "静寂", "灯り"],
-  },
-  {
-    id: "wheel",
-    name_jp: "運命の輪",
-    img: "/cards/10_wheel.svg",
-    upright: "転機・流れに乗る・チャンス",
-    reversed: "停滞・タイミングずれ",
-    long_upright: "流れが変わるサイン。来たチャンスに“今できる最小のアクション”で乗ってみよう。",
-    long_reversed: "焦って掴むより整える時。準備が整えば、次の波は必ず来る。",
-    love: "タイミング重視。無理に動かず機を待つのも◎。",
-    work: "変化を味方に。方針転換や新企画に追い風。",
-    money: "相場の波に乗るのは小さく慎重に。",
-    advice: "運を呼ぶ“整え作業”を10分だけ。",
-    keywords: ["転機", "周期", "偶然", "チャンス", "波"],
-  },
-  {
-    id: "justice",
-    name_jp: "正義",
-    img: "/cards/11_justice.svg",
-    upright: "公平・判断・バランス",
-    reversed: "片寄り・迷い・不一致",
-    long_upright: "事実ベースで整える時。感情と理性の真ん中に立てば、納得できる選択ができる。",
-    long_reversed: "白黒つける前に状況確認。情報の偏りを減らすだけで見え方が変わるよ。",
-    love: "対等な関係づくり。境界線を言葉に。",
-    work: "契約・合意形成◎。ドキュメントが鍵。",
-    money: "家計の見える化。固定費の調整が効果的。",
-    advice: "“根拠”を3つ挙げてから決める。",
-    keywords: ["公平", "秩序", "判断", "調整", "整合"],
-  },
-  {
-    id: "hanged_man",
-    name_jp: "吊るされた男",
-    img: "/cards/12_hanged_man.svg",
-    upright: "視点転換・受容・準備期間",
-    reversed: "停滞感・我慢のしすぎ",
-    long_upright: "今は“ため”の時。見方を変えるほど、次に活きる学びが深まる。",
-    long_reversed: "犠牲にしすぎてない？小さな自由を自分に返して、息を整えよう。",
-    love: "一旦立ち止まり、相手の視点を理解する。",
-    work: "優先順位の入れ替えで突破口が。",
-    money: "大きな動きは保留。準備と情報収集を。",
-    advice: "状況を“別の立場”から一度書き出す。",
-    keywords: ["保留", "視点", "受容", "学び", "準備"],
-  },
-  {
-    id: "death",
-    name_jp: "死神",
-    img: "/cards/13_death.svg",
-    upright: "終わりと再生・手放し",
-    reversed: "過去への執着・変化の抵抗",
-    long_upright: "次の始まりのために、役目を終えたものを静かに手放す時。スペースができて新しい風が入るよ。",
-    long_reversed: "怖さは普通。少しずつでOK。小さな“卒業”から始めよう。",
-    love: "一区切りや形の見直し。無理はしないで。",
-    work: "方針転換・クローズ・引き継ぎを丁寧に。",
-    money: "不要な固定費を終了。身軽さが未来を呼ぶ。",
-    advice: "“やめることリスト”を3つ決める。",
-    keywords: ["終焉", "再生", "手放し", "変容", "更新"],
-  },
-  {
-    id: "temperance",
-    name_jp: "節制",
-    img: "/cards/14_temperance.svg",
-    upright: "調和・ほどよさ・回復",
-    reversed: "過不足・アンバランス",
-    long_upright: "足し引きのバランスを整えるほど、心身の調子も人間関係も穏やかに整っていく。",
-    long_reversed: "やりすぎ・我慢しすぎを1つ減らすだけで流れが軽くなる。",
-    love: "歩幅を合わせると安心感が増す。",
-    work: "調整役に適性。分配・配分の見直し。",
-    money: "収支のバランスを最適化。小さな無駄を削減。",
-    advice: "“ちょうどいい”を体感する行動を1つ。",
-    keywords: ["調整", "節度", "癒し", "中庸", "再生"],
-  },
-  {
-    id: "devil",
-    name_jp: "悪魔",
-    img: "/cards/15_devil.svg",
-    upright: "誘惑・執着・依存",
-    reversed: "解放・自制・距離を取る",
-    long_upright: "心地よいけれど後で苦しくなるものに注意。自分を責めず、小さく距離を取るだけで十分。",
-    long_reversed: "鎖は“気づき”で外れる。完璧でなくていい、少し軽くなれば前に進める。",
-    love: "嫉妬や不安は正直に、しかし相手責めはしない。",
-    work: "短期メリットに偏らない。長期の健全さを。",
-    money: "衝動や依存の芽に気をつける。",
-    advice: "“距離を取るトリガー”を事前に決める。",
-    keywords: ["執着", "依存", "欲望", "束縛", "解放"],
-  },
-  {
-    id: "tower",
-    name_jp: "塔",
-    img: "/cards/16_tower.svg",
-    upright: "予想外・崩壊・覚醒",
-    reversed: "被害縮小・余波・学び",
-    long_upright: "壊れるのは“必要のない土台”。痛みの先に、本当に大切な形へ再構築が始まる。",
-    long_reversed: "影響を小さく抑える動きが吉。助けを求めるのも立派な対処だよ。",
-    love: "思い込みの崩壊。正直な対話が新しい出発に。",
-    work: "緊急対応と振り返りをセットで。",
-    money: "リスク管理と保険の見直しを。",
-    advice: "“今すぐできる復旧手順”を3つ用意。",
-    keywords: ["崩壊", "目覚め", "再建", "真実", "現実見る"],
-  },
-  {
-    id: "star",
-    name_jp: "星",
-    img: "/cards/17_star.svg",
-    upright: "希望・癒し・インスピレーション",
-    reversed: "期待外れ・自己不信",
-    long_upright: "ゆっくり回復中。小さな希望の灯りを大切にすれば、自然と前向きさが戻ってくる。",
-    long_reversed: "夢を下ろして“今日できる一歩”に。自己否定に気づいたら、優しい声がけを。",
-    love: "理想を語り合う時間が関係を温める。",
-    work: "長期ビジョンの共有が追い風に。",
-    money: "目的に沿った貯蓄・投資が吉。",
-    advice: "1日の終わりに“良かったこと”を3つ。",
-    keywords: ["希望", "回復", "インスピレーション", "透明さ", "願い"],
-  },
-  {
-    id: "moon",
-    name_jp: "月",
-    img: "/cards/18_moon.svg",
-    upright: "不安・想像・曖昧さ",
-    reversed: "霧が晴れる・安心",
-    long_upright: "見えないから不安になるのは自然なこと。情報を集め、安心できる人に話そう。",
-    long_reversed: "過度な心配が和らぐ兆し。手触りのある小さな事実を積み上げていこう。",
-    love: "誤解を放置せず、丁寧に確認を。",
-    work: "曖昧な要件を言語化するのが鍵。",
-    money: "不明点は契約前に必ず確認。",
-    advice: "睡眠と食事を整えて心の地力を守る。",
-    keywords: ["潜在意識", "直感", "曖昧", "不安", "夢"],
-  },
-  {
-    id: "sun",
-    name_jp: "太陽",
-    img: "/cards/19_sun.svg",
-    upright: "成功・喜び・生命力",
-    reversed: "空元気・消耗・焦り",
-    long_upright: "好調期。素直に喜び、周りと分かち合えば、さらに運が循環する。",
-    long_reversed: "走り続けすぎていない？少し休めば、またすぐ光は戻るよ。",
-    love: "オープンさが関係を明るくする。",
-    work: "成果の発表・納品・PR◎。",
-    money: "入出金ともに活発。余裕は貯蓄へ。",
-    advice: "小さな成功を言葉にして自分を褒める。",
-    keywords: ["成功", "幸福", "活力", "開放", "祝福"],
-  },
-  {
-    id: "judgement",
-    name_jp: "審判",
-    img: "/cards/20_judgement.svg",
-    upright: "復活・決意・呼びかけ",
-    reversed: "迷い・過去への後悔",
-    long_upright: "もう一度やってみようという声が聞こえる。過去の経験が今こそ活きる時。",
-    long_reversed: "“もしあの時…”に囚われすぎないで。今からできる選択に意識を戻そう。",
-    love: "再会や関係のやり直しに吉。",
-    work: "再チャレンジや復帰が実りやすい。",
-    money: "過去の損得を学びに変える。",
-    advice: "今日決めることを1つ宣言する。",
-    keywords: ["再生", "決意", "許し", "呼応", "転機"],
-  },
-  {
-    id: "world",
-    name_jp: "世界",
-    img: "/cards/21_world.svg",
-    upright: "完成・達成・統合",
-    reversed: "未完・あと一歩",
-    long_upright: "努力が実って一区切り。経験は次の章への土台。感謝を伝えて新しい扉を開こう。",
-    long_reversed: "最後の仕上げを丁寧に。締めの一言や記録が価値を完成させる。",
-    love: "関係の成熟・公式化に追い風。",
-    work: "リリース・納品・事例化で価値最大化。",
-    money: "収穫と再配分。次の投資設計へ。",
-    advice: "“完了宣言”を言葉にして区切りをつける。",
-    keywords: ["達成", "統合", "完了", "循環", "祝福"],
-  },
-];
-
-
-
-
-
-
-
-
+// 互換用（OneCardTarot2 などが deck をインポートしている場合）
+export const deck = FULL_DECK;
+'@ | Set-Content -Encoding UTF8 lib\deck.ts
