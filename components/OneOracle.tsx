@@ -28,10 +28,10 @@ export default function OneOracle() {
   const { card, reversed } = entry;
 
   // 詳細文：upright/reversed → advice.all の順でフォールバック
-  const meaning =
-    (reversed ? (card as any).reversed : (card as any).upright) ??
-    (card as any).advice?.all ??
-    "";
+ const meaning =
+  (reversed ? (card as any).reversed : (card as any).upright)
+  ?? (card as any).advice?.all
+  ?? "";
 
   return (
     <div className="grid place-items-center gap-3 max-w-[40rem] mx-auto">
