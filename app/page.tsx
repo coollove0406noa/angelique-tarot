@@ -1,4 +1,9 @@
 // app/debug/page.tsx
+import ResultStamp from "@/components/ResultStamp";
+import ExportImageButton from "@/components/ExportImageButton";
+import ShareActions from "@/components/ShareActions";
+import { nowUnix, withParam } from "@/lib/format";
+
 import { MAJOR_ARCANA } from "../../lib/deck";
 
 // どこか見出しの下あたりに
@@ -25,3 +30,14 @@ export default function DebugDeck() {
     </main>
   );
 }
+const t = nowUnix();
+const stampedUrl = withParam(currentShareUrl, "t", String(t));
+<div id="result" className="mx-auto max-w-[1100px]">
+  {/* カード表示やテキスト結果 */}
+  <ResultStamp unix={t} />
+</div>
+
+<div className="mt-3 flex flex-wrap gap-2">
+  <ExportImageButton targetId="result" filename={`angelique-one-${t}.png`} />
+  <ShareActions url={stampedUrl} />
+</div>
