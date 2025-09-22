@@ -12,6 +12,11 @@ export default function Home() {
     </main>
   );
 }
+import Link from "next/link";
+
+<Link href="/three" className="mt-4 inline-block rounded bg-pink-500 px-4 py-2 text-white">
+  3枚引きへ
+</Link>
 
 
 import ExportImageButton from "@/components/ExportImageButton";
