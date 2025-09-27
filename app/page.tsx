@@ -1,4 +1,4 @@
-// app/page.tsx  ←この内容に全置換してください
+// app/page.tsx
 import OneCardTarot2 from "../components/OneCardTarot2";
 
 export default function Page() {
